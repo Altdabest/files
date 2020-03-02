@@ -19,7 +19,7 @@ $(document).ready(function () {
     }
     this.subscriptions = $.unique(this.subscriptions);
   }
-
+//hi
   PubNub.prototype.connect = function(username) {
     this.username = username;
     this.connection = PUBNUB.init({
