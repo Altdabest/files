@@ -1,3 +1,4 @@
+var $ = document.getElementById;
 $(document).ready(function () {
   ////
   // PubNub Decorator
