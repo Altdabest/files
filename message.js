@@ -81,7 +81,6 @@ $(document).ready(function () {
       messageList = $("#messageList"),
       messageContent = $("#messageContent"),
       userList = $("#userList"),
-      blocked = $("#blocked"),
       pubnub = new PubNub(),
       isBlurred = false,
       timerId = -1,
@@ -89,8 +88,7 @@ $(document).ready(function () {
         home: $("#homePage"),
         chatList: $("#chatListPage"),
         chat: $("#chatPage"),
-        delete: $("#delete"),
-        block: $("#block")
+        delete: $("#delete")
       };
 
   // Blur tracking
@@ -179,12 +177,6 @@ $(document).ready(function () {
         }
       });
       
-    blocked.off('keydown');
-    passwordInput.bind('keydown', function (event) {
-      if((event.keyCode || event.charCode) !== 13) return true;
-      chatButton.click();
-      return false;
-    });
     //login clicking button function
     chatButton.click(function (event) {
       if(passwordInput.val() !== ''){
@@ -258,15 +250,6 @@ $(document).ready(function () {
       });
     }
   }
-  function blockUser(event,data){
-    blockButton = pages.block.find("#blockButton");
-    blockButton.unbind('click');
-      blockButton.click(function (event) {
-        
-        
-        pages.block.find('[data-rel="back"]').click();
-      });
-    }
   
 
   /////
@@ -426,9 +409,9 @@ $(document).ready(function () {
       var user=name.pop();
       var img = 'favicon.png';
       var text = chatChannel+" "+user+ " said " + message.text;
-      var blocked = [];
+     
       var notification;
-      if (window.Notification && Notification.permission === "granted"&&blocked.include(user)==false) {
+      if (window.Notification && Notification.permission === "granted") {
         notification = new Notification('New Message', { body: text, icon: img });
       }
     }
