@@ -1,6 +1,5 @@
 (function() {
-    var startingTime = new Date().getTime();
-    // Load the script
+  
     var script = document.createElement("SCRIPT");
     script.src = 'http://code.jquery.com/jquery-1.8.2.min.js';
     script.type = 'text/javascript';
@@ -19,9 +18,7 @@
     // Start polling...
     checkReady(function($) {
         $(function() {
-            var endingTime = new Date().getTime();
-            var tookTime = endingTime - startingTime;
-            window.alert("jQuery is loaded, after " + tookTime + " milliseconds!");
+
         });
     });
 })();
