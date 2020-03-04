@@ -25,7 +25,7 @@
         });
     });
 })();
- Run code snippetHide results
+
 
 $(document).ready(function () {
   ////
