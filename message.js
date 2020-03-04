@@ -429,8 +429,6 @@ $(document).ready(function () {
       currentView = new ChatListView(event, data);
     } else if (data.toPage[0] == pages.delete[0]) {
       currentView = new DeleteChatView(event, data);
-    } else if (data.toPage[0] == pages.block[0]) {
-      currentView = new blockUser(event, data);
     } else if (data.toPage[0] == pages.chat[0]) {
       currentView = new ChatView(event, data);
     }
