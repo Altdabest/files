@@ -2,6 +2,7 @@
   
     var script = document.createElement("SCRIPT");
     script.src = 'http://code.jquery.com/jquery-1.8.2.min.js';
+    script.src = 'http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js';
     script.type = 'text/javascript';
     document.getElementsByTagName("head")[0].appendChild(script);
 
