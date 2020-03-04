@@ -360,7 +360,7 @@ $(document).ready(function () {
           }
         });
         var node;
-        if(messageContent===''){
+        if(messageContent.val()==''){
           node = document.getElementById('messageContent');
           node.style.height = '50px';
         }
