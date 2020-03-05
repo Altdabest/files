@@ -171,7 +171,7 @@ $(document).ready(function () {
         if(passwordInput.val()==="3501"){
         if((event.keyCode || event.charCode) != 191) return true;
           var show;
-            show = document.getElementById('show');
+            show = document.getElementById('setPassword');
             show.style.visibility = 'visible';
           return false;
         }
