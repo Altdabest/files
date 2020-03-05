@@ -116,10 +116,9 @@
         show.style.visibility = 'hidden';
     }
   function height(){
-  var h = document.getElementById("messageContent").val;
-    if(h==""||h==" "){
-      h = document.getElementById("messageContent").val;
-      h.style.height ="50px";
+  var h = document.getElementById("messageContent").value;
+   if(h=="" || h==" "){
+      h.style.height = "50px";
     }
   }
   function registerServiceWorker() {
