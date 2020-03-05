@@ -1,11 +1,5 @@
 
 $(document).ready(function () {
-  ////
-  // PubNub Decorator
-  // -------------------
-  // This wraps the pubnub libarary so we can handle the uuid and list
-  // of subscribed channels.
-  ////
   
   function PubNub() {
     //this.publishKey = 'pub-c-ab4c8626-b3db-4ce7-8b2c-372a9f11f465'; //test
@@ -391,6 +385,7 @@ $(document).ready(function () {
         notification = new Notification('New Message', { body: text, icon: img });
       }
     }
+  }
 
   // Initially start off on the home page.
   $.mobile.changePage(pages.home);
@@ -408,4 +403,4 @@ $(document).ready(function () {
       currentView = new ChatView(event, data);
     }
   });
-  })
+  });
