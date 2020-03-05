@@ -404,7 +404,6 @@ $(document).ready(function () {
         notification = new Notification('New Message', { body: text, icon: img });
       }
     }
-  };
 
   // Initially start off on the home page.
   $.mobile.changePage(pages.home);
