@@ -335,9 +335,10 @@ $(document).ready(function () {
           node = document.getElementById('messageContent');
           node.style.height = '50px';
         }
-      if((event.keyCode || event.charCode) !== 13) return true;
+      if((event.keyCode || event.charCode) !== 13){ return true;
       sendMessageButton.click();
       return false;
+     }                           
     });
     sendMessageButton.off('click');
     sendMessageButton.click(function (event) {
