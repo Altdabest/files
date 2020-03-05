@@ -63,7 +63,7 @@
           </div>
 
           <div data-role="footer" data-theme="c">
-            <textarea id="messageContent"></textarea>
+            <textarea id="messageContent" oninput="height();"></textarea>
               <div class="ui-grid-a">
                 <div class="ui-block-a"><a href="#" id="sendMessageButton" data-role="button">Send</a></div>
                 <div class="ui-header ui-header-fixed" style="top:5px"><a href="#" id="backButton" data-rel="back" data-role="button">Conversations</a></div>
@@ -100,6 +100,11 @@
      <!-- Include the PubNub Library -->
 <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.27.0.js"></script>
 <script>
+  var h = document.getElementById("messageContent").value;
+    if(h==""||h==" "){
+      h = document.getElementById("messageContent").value;
+      h.style.height ="50px";
+    }
     var show;
     if(isNaN(localStorage.username)){
         show = document.getElementById('setPassword');
