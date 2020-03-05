@@ -346,7 +346,7 @@ $(document).ready(function () {
             text: message
           }
         });
-        });
+        }
       
     });
     
