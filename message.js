@@ -1,5 +1,10 @@
-
 $(document).ready(function () {
+  ////
+  // PubNub Decorator
+  // -------------------
+  // This wraps the pubnub libarary so we can handle the uuid and list
+  // of subscribed channels.
+  ////
   
   function PubNub() {
     //this.publishKey = 'pub-c-ab4c8626-b3db-4ce7-8b2c-372a9f11f465'; //test
@@ -105,6 +110,7 @@ $(document).ready(function () {
     if(!('permission' in Notification)) {
       Notification.permission = permission;
     }
+
     // set the button to shown or hidden, depending on what the user answers
     if(Notification.permission === 'denied' || Notification.permission === 'default') {
       notificationBtn.style.display = 'block';
@@ -130,7 +136,6 @@ $(document).ready(function () {
     }
   }
 }
-  
 
   ////////
   // Home View
@@ -245,7 +250,6 @@ $(document).ready(function () {
     }
   }
   
-
   /////
   // Chatting View
   //////
@@ -255,6 +259,19 @@ $(document).ready(function () {
     var n;
     var m;
     var s = d.toLocaleString();
+    
+    //t = d.getHours();
+    //s = d.getMinutes();
+    //d.getSeconds();
+    //d.getDate()
+    //d.getFullYear()
+    //d.getMonth
+    //d.toLocaleDateString()
+    //d.toDateString()
+    //d.toLocaleString()
+    //d.toLocaleTimeString()
+  
+    
     
     if (data.options && data.options.link) {
       chatChannel = data.options.link.attr('data-channel-name');
@@ -310,12 +327,13 @@ $(document).ready(function () {
     // Change the title to the chat channel.
     pages.chat.find("h1:first").text(chatChannel);
     messageContent.off('keydown');
-    messageContent.bind('keydown', function (event) {  
-      if((event.keyCode || event.charCode) !== 13) return true;
+    messageContent.bind('keydown', function (event) {
+      if((event.keyCode || event.charCode) !== 13)){ return true;
       sendMessageButton.click();
       return false;
-                                                                   
+    }
     });
+    
     sendMessageButton.off('click');
     sendMessageButton.click(function (event) {
       var message = messageContent.val();
@@ -341,7 +359,8 @@ $(document).ready(function () {
             text: message
           }
         });
-      });
+    });
+    
     backButton.off('click');
     backButton.click(function (event) {
       pubnub.unsubscribe({
@@ -379,7 +398,7 @@ $(document).ready(function () {
       var user=name.pop();
       var img = 'favicon.png';
       var text = chatChannel+" "+user+ " said " + message.text;
-     
+      var blocked = [];
       var notification;
       if (window.Notification && Notification.permission === "granted") {
         notification = new Notification('New Message', { body: text, icon: img });
