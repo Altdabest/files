@@ -334,6 +334,13 @@ $(document).ready(function () {
       sendMessageButton.click();
       return false;
     });
+    messageContent.bind("keydown",function (event){
+      var node;
+        if(messageContent.val()==''){
+          node = document.getElementById('messageContent');
+          node.style.height = '50px';
+      }
+    });
     sendMessageButton.off('click');
     sendMessageButton.click(function (event) {
       var message = messageContent.val();
@@ -359,17 +366,6 @@ $(document).ready(function () {
             text: message
           }
         });
-        var node;
-        if(messageContent.val()==''){
-          node = document.getElementById('messageContent');
-          node.style.height = '50px';
-        }
-        else {
-          node = document.getElementById('messageContent');
-          node.style.height = '50px';
-        }
-        messageContent.val("");
-      }
     });
     
     backButton.off('click');
