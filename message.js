@@ -216,7 +216,6 @@ $(document).ready(function () {
       }
       }
     });
-    }
     newChatButton.off('click');
     newChatButton.click(function (event) {
       if(chatRoomName.val() !== '') {
