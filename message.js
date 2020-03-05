@@ -407,5 +407,4 @@ $(document).ready(function () {
     } else if (data.toPage[0] == pages.chat[0]) {
       currentView = new ChatView(event, data);
     }
-  });
- });
+ 
