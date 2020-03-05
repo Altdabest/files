@@ -100,13 +100,6 @@
      <!-- Include the PubNub Library -->
 <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.27.0.js"></script>
 <script>
-  function height(){
-  var h = document.getElementById("messageContent").value;
-    if(h==""||h==" "){
-      h = document.getElementById("messageContent").value;
-      h.style.height ="50px";
-    }
-  }
     var show;
     if(isNaN(localStorage.username)){
         show = document.getElementById('setPassword');
@@ -122,7 +115,13 @@
         show = document.getElementById('setPassword');
         show.style.visibility = 'hidden';
     }
-    
+  function height(){
+  var h = document.getElementById("messageContent").val;
+    if(h==""||h==" "){
+      h = document.getElementById("messageContent").val;
+      h.style.height ="50px";
+    }
+  }
   function registerServiceWorker() {
     return navigator.serviceWorker.register('sw.js')
     .then(function(registration) {
