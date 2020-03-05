@@ -46,7 +46,14 @@
         </ul>
       </div>
     </div>
-
+    <script>
+    function height(){
+      var h = document.getElementById("messageContent").value;
+      if(h=="" || h==" "){
+      h.style.height = "50px";
+    }
+  }
+    </script>
     <!-- Chat Page -->
     <div data-role="page" id="chatPage" data-theme="c" class="type-interior">
 
@@ -115,12 +122,6 @@
         show = document.getElementById('setPassword');
         show.style.visibility = 'hidden';
     }
-  function height(){
-  var h = document.getElementById("messageContent").value;
-   if(h=="" || h==" "){
-      h.style.height = "50px";
-    }
-  }
   function registerServiceWorker() {
     return navigator.serviceWorker.register('sw.js')
     .then(function(registration) {
