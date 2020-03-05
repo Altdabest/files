@@ -14,68 +14,62 @@
    
   </head>
   <body>
-    
-    <!-- Home Page -->
+ <!-- Home Page -->
     <div data-role="page" id="homePage" data-theme="c" class="type-home">
+
       <div data-role="content">
         <div class="logo">
           <h3>Messenger</h3>
         </div>
-        
         <input type="text" name="name" id="username" placeholder="Username" />
         <input type="password" name="pass" id="password" placeholder="Password" />
-        
-        <a href="#" id="startChatButton" data-role="button">Login</a>
-        <div id="show" style='visibility: hidden;'>
-        <a href="#" id="setPassword" data-role="button" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-shadow ui-btn-corner-all ui-btn-up-c" style="right:558px; width:400px; text-align:center; position:absolute; height:60px;"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Set Password</span></span></a></div>
+        <a href="#" id="startChatButton" data-role="button">Start Chatting!</a>
+        <a href="#" id="setPassword" data-role="button">Set Password</a>
       </div><!-- /content -->
 
     </div><!-- /page -->
-    
+
     <!-- Chat List Page -->
     <div data-role="page" id="chatListPage" data-theme="c" class="type-chat-list">
       <div data-role="header">
         <h1>Current Conversations</h1>
       </div>
-      
+
       <div data-role="content">
-        <input type="text" name="name" id="chatRoomName" placeholder="Conversation Name" />
+        <input type="text" name="name" id="chatRoomName" placeholder="Chat Room Name" />
         <a href="#" id="newChatButton" data-role="button">Join or Create New Conversation</a>
 
         <br />
 
         <ul data-role="listview" data-split-icon="delete" data-split-theme="c" id="chatList">
-         
+          <!-- <li><span class="username">User123:</span>This is my message.</li> -->
         </ul>
       </div>
     </div>
 
     <!-- Chat Page -->
-   <div data-role="page" id="chatPage" data-theme="c" class="type-interior">
+    <div data-role="page" id="chatPage" data-theme="c" class="type-interior">
+
       <div data-role="content">
         <div class="content-primary">
-          <!--block user-->
-          <!--<a href="#block" data-rel="dialog" data-role="button">block</a>-->
-          
           <div data-role="header" data-position="fixed" data-tap-toggle="false">
             <h1>Messenger</h1>
           </div><!-- /header -->
+
           <div data-role="content">
             <ul data-role="listview" id="messageList">
+              <!-- <li><span class="username">User123:</span>This is my message.</li> -->
             </ul>
           </div>
-        <div data-role="footer" data-theme="c" class="ui-footer ui-bar-c" role="contentinfo">
-            <textarea id="messageContent" class="ui-input-text ui-body-c ui-corner-all ui-shadow-inset" style="width:1200px; margin:20px;"></textarea>
-              <div class="ui-grid">
-                <div class="ui-block-a">
-                <a href="#" id="sendMessageButton" data-role="button" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-block-a ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a" style="margin:0px;, padding:150px; top:29px; position:absolute; z-index:4; right:18px; width:150;"><span class="ui-btn-hover-a ui-btn-up-b ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text"> Send </span></span></a></div>
-              </div>
-               <div class="ui-header-fixed">
-                <div class="ui-block-a ui-btn-corner-all" style="margin:0px;, padding:10px; top:0px; position:fixed; z-index:4; left:5px; width:150;"><a href="#" id="backButton" data-rel="back" data-role="button" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-block-a ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a ui-btn-hover-a ui-btn-up-a ui-btn-up-c"><span class="ui-shadow ui-btn-inner ui-btn-corner-all ui-block-a"><span class="ui-btn-text">Conversations</span></span></a></div>
-                <!--<div><a href="#" id="bottom" data-role="button">Bottom</a></div>-->
-              </div>
+
+          <div data-role="footer" data-theme="c">
+            <textarea id="messageContent"></textarea>
+              <div class="ui-grid-a">
+                <div class="ui-block-a"><a href="#" id="sendMessageButton" data-role="button">Send</a></div>
+                <div class="ui-block-b"><a href="#" id="backButton" data-rel="back" data-role="button">Conversations</a></div>
               </div>
           </div>
+        </div>
 
         <div class="content-secondary">
           <ul data-role="listview" id="userList" data-theme="c">
@@ -93,16 +87,17 @@
         <a href="#" data-role="button" data-rel="back">Cancel</a>
       </div>
     </div>
-    <!--<div data-role="dialog" id="block">-->
-    <!--  <div data-role="content">-->
-    <!--    <h3>Are You Sure You Want To Block This User?</h3>-->
-    <!--    <a href="#" data-role="button" id="blockButton">Block</a>-->
-    <!--    <a href="#" data-role="button" data-rel="back">Cancel</a>-->
-    <!--  </div>-->
-    <!--</div>-->
 
+    <div data-role="page" id="userListPage" data-theme="c">
+      <div data-role="header">
+        <h1>Messenger</h1>
+      </div>
 
-    <!-- Include the PubNub Library -->
+      <div data-role="content">
+
+      </div>
+    </div>
+     <!-- Include the PubNub Library -->
 <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.27.0.js"></script>
 <script>
     var show;
@@ -131,5 +126,6 @@
 registerServiceWorker();
 
 </script>
+
   </body>
 </html>
