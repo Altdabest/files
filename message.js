@@ -340,6 +340,7 @@ $(document).ready(function () {
             text: message
           }
         });
+      });
     
     backButton.off('click');
     backButton.click(function (event) {
