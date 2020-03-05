@@ -422,4 +422,3 @@ $(document).ready(function () {
       currentView = new ChatView(event, data);
     }
   });
-});
