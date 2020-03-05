@@ -105,7 +105,6 @@ $(document).ready(function () {
     if(!('permission' in Notification)) {
       Notification.permission = permission;
     }
-
     // set the button to shown or hidden, depending on what the user answers
     if(Notification.permission === 'denied' || Notification.permission === 'default') {
       notificationBtn.style.display = 'block';
@@ -130,7 +129,7 @@ $(document).ready(function () {
       });
     }
   }
-  }
+  
 
   ////////
   // Home View
