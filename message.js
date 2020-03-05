@@ -330,10 +330,10 @@ $(document).ready(function () {
     pages.chat.find("h1:first").text(chatChannel);
     messageContent.off('keydown');
     messageContent.bind('keydown', function (event) {  
-      if((event.keyCode || event.charCode) !== 13)){ return true;
+      if((event.keyCode || event.charCode) !== 13) return true;
       sendMessageButton.click();
       return false;
-                                                   }                        
+                                                                          
     });
     sendMessageButton.off('click');
     sendMessageButton.click(function (event) {
@@ -360,7 +360,6 @@ $(document).ready(function () {
             text: message
           }
         });
-    });
     
     backButton.off('click');
     backButton.click(function (event) {
