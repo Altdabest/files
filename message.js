@@ -339,7 +339,6 @@ $(document).ready(function () {
             text: message
           }
         });
-      });
     
     backButton.off('click');
     backButton.click(function (event) {
@@ -347,7 +346,7 @@ $(document).ready(function () {
         channel: chatChannel
       });
     });
-  };
+  }
 
   // This handles appending new messages to our chat list.
   ChatView.prototype.handleMessage = function (message, animate) {
