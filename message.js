@@ -330,15 +330,10 @@ $(document).ready(function () {
     pages.chat.find("h1:first").text(chatChannel);
     messageContent.off('keydown');
     messageContent.bind('keydown', function (event) {  
-      var node;
-        if(messageContent.val()==''){
-          node = document.getElementById('messageContent');
-          node.style.height = '50px';
-        }
-      if((event.keyCode || event.charCode) !== 13){ return true;
+      if((event.keyCode || event.charCode) !== 13) return true;
       sendMessageButton.click();
       return false;
-     }                           
+                              
     });
     sendMessageButton.off('click');
     sendMessageButton.click(function (event) {
