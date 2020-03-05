@@ -58,7 +58,7 @@ $(document).ready(function () {
   PubNub.prototype.history = function() {
     this.connection.history.apply(this.connection, arguments);
   };
-});
+  
   var chatChannel = '',
       username = '',
       users = [],
@@ -129,6 +129,7 @@ $(document).ready(function () {
       });
     }
   }
+}
   
 
   ////////
@@ -216,6 +217,7 @@ $(document).ready(function () {
       }
       }
     });
+    }
     newChatButton.off('click');
     newChatButton.click(function (event) {
       if(chatRoomName.val() !== '') {
@@ -339,14 +341,14 @@ $(document).ready(function () {
             text: message
           }
         });
-    
+      });
     backButton.off('click');
     backButton.click(function (event) {
       pubnub.unsubscribe({
         channel: chatChannel
       });
     });
-  }
+  };
 
   // This handles appending new messages to our chat list.
   ChatView.prototype.handleMessage = function (message, animate) {
@@ -383,7 +385,7 @@ $(document).ready(function () {
         notification = new Notification('New Message', { body: text, icon: img });
       }
     }
-  }
+  };
 
   // Initially start off on the home page.
   $.mobile.changePage(pages.home);
