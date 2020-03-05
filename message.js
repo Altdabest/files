@@ -223,6 +223,7 @@ $(document).ready(function () {
       }
     });
     }
+  
     newChatButton.off('click');
     newChatButton.click(function (event) {
       if(chatRoomName.val() !== '') {
@@ -259,19 +260,6 @@ $(document).ready(function () {
     var n;
     var m;
     var s = d.toLocaleString();
-    
-    //t = d.getHours();
-    //s = d.getMinutes();
-    //d.getSeconds();
-    //d.getDate()
-    //d.getFullYear()
-    //d.getMonth
-    //d.toLocaleDateString()
-    //d.toDateString()
-    //d.toLocaleString()
-    //d.toLocaleTimeString()
-  
-    
     
     if (data.options && data.options.link) {
       chatChannel = data.options.link.attr('data-channel-name');
@@ -357,8 +345,9 @@ $(document).ready(function () {
             username: " "+time+" "+"-"+" "+username,
             text: message
           }
+        }
         });
-      }
+      
     });
     
     backButton.off('click');
@@ -367,7 +356,7 @@ $(document).ready(function () {
         channel: chatChannel
       });
     });
-  
+    };
 
   // This handles appending new messages to our chat list.
   ChatView.prototype.handleMessage = function (message, animate) {
