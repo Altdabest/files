@@ -345,7 +345,7 @@ $(document).ready(function () {
             username: " "+time+" "+"-"+" "+username,
             text: message
           }
-        }
+        });
         });
       
     });
