@@ -347,7 +347,7 @@ $(document).ready(function () {
           }
         });
         }
-      
+      messageContent.val("");
     });
     
     backButton.off('click');
