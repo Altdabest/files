@@ -1,17 +1,14 @@
 $(document).ready(function () {
-  ////
-  // PubNub Decorator
-  // -------------------
-  // This wraps the pubnub libarary so we can handle the uuid and list
-  // of subscribed channels.
-  ////
-  
   function PubNub() {
     //this.publishKey = 'pub-c-ab4c8626-b3db-4ce7-8b2c-372a9f11f465'; //test
     //this.subscribeKey = 'sub-c-43a0587a-01b6-11ea-bbfb-3ebaf4b32844'; //test
     
-    this.publishKey = 'pub-c-cad65686-bd3c-4dc7-8789-3948635af779';//offical
-    this.subscribeKey = 'sub-c-2fdccaf0-0704-11ea-a6bf-b207d7d0b791';//offical
+    //this.publishKey = 'pub-c-cad65686-bd3c-4dc7-8789-3948635af779';//offical
+    //this.subscribeKey = 'sub-c-2fdccaf0-0704-11ea-a6bf-b207d7d0b791';//offical
+    
+    this.publishKey='pub-c-4a2cb5f4-15b4-41c8-8c0b-886a26e9a177';
+    this.subscribeKey='sub-c-e4e73fd2-023d-11ea-831a-52dd774e953e';
+    
     this.subscriptions = localStorage["pn-subscriptions"]||[];
 
     if(typeof this.subscriptions == "string") {
@@ -212,14 +209,20 @@ $(document).ready(function () {
       pubnub.subscribe({
       channel:pubnub.subscriptions[i],
       callback: function(message, env, channel){
-        var name = message.username.split(" ");
-        var user=name.pop();
-        var img = 'favicon.png';
-        var text = channel+" "+user + " said " + message.text;
-        var notification;
+        var colon = message.text.indexOf(":");
+        var user = message.text.slice(0,colon);
+        var mess = message.text.split(" ");
+        var txt = mess.pop();
+     
+        const title = "New Message";
+        const options = {
+        body: channel+"\n"+user+" said "+txt,
+        icon: 'favicon.png'
+      };
+        var blocked = [];
         if (window.Notification && Notification.permission === "granted") {
-        notification = new Notification('New Message', { body: text, icon: img });
-      }
+          new Notification(title,options);
+        }
       }
     });
     }
@@ -342,8 +345,8 @@ $(document).ready(function () {
         pubnub.publish({
           channel: chatChannel,
           message: {
-            username: " "+time+" "+"-"+" "+username,
-            text: message
+            username: time,
+            text: username+": "+message
           }
         });
         }
@@ -363,7 +366,7 @@ $(document).ready(function () {
     if (animate !== false){ animate = true;}
 
     var messageEl = $("<li class='message'>"+ "<span class='username'>"
-      +message.username+ ": " + "</span>"
+      +message.username+ "</span>"
       +message.text
       
       +"</li>");
@@ -383,14 +386,19 @@ $(document).ready(function () {
       }, 2000);
          
       // Notification handling
-      var name = message.username.split(" ");
-      var user=name.pop();
-      var img = 'favicon.png';
-      var text = chatChannel+" "+user+ " said " + message.text;
+      colon = message.text.indexOf(":");
+      user = message.text.slice(0,colon);
+      mess = message.text.split(" ");
+      txt = mess.pop();
+     
+      const title = "New Message";
+      const options = {
+      body: chatChannel+"\n"+user+" said "+txt,
+      icon: 'favicon.png'
+    };
       var blocked = [];
-      var notification;
       if (window.Notification && Notification.permission === "granted") {
-        notification = new Notification('New Message', { body: text, icon: img });
+        new Notification(title,options);
       }
     }
   };
@@ -399,7 +407,6 @@ $(document).ready(function () {
   $.mobile.changePage(pages.home);
   var currentView = new HomeView();
 
-  // This code essentially does what routing does in Backbone.js.
   // It takes the page destination and creates a view based on what
   // page the user is navigating to.
   $(document).bind("pagechange", function (event, data) {
