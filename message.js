@@ -211,8 +211,7 @@ $(document).ready(function () {
       callback: function(message, env, channel){
         var colon = message.text.indexOf(":");
         var user = message.text.slice(0,colon);
-        var mess = message.text.split(" ");
-        var txt = mess.pop();
+        var txt = message.text.slice(colon+1);
      
         const title = "New Message";
         const options = {
@@ -388,8 +387,7 @@ $(document).ready(function () {
       // Notification handling
       colon = message.text.indexOf(":");
       user = message.text.slice(0,colon);
-      mess = message.text.split(" ");
-      txt = mess.pop();
+      txt = message.text.slice(colon+1);
      
       const title = "New Message";
       const options = {
