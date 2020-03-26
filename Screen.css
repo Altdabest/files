@@ -46,7 +46,7 @@ li.message:nth-child(even) {
 
 /* Home Page */
 [data-role="page"] {
-  background-image: -webkit-linear-gradient(top, rgba(250,250,250, 0.7) 0%, rgba(250,250,250,0) 100%), url(pw_pattern.png);
+  background-image: -webkit-linear-gradient(top, rgba(250,250,250, 0.7) 0%, rgba(250,250,250,0) 100%), url(https://query.data.world/s/wyx2leq525p5plzgzwbqffxs4p6olo);
 }
 
 .type-home .ui-content {
