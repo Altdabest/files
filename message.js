@@ -3,11 +3,11 @@ $(document).ready(function () {
     //this.publishKey = 'pub-c-ab4c8626-b3db-4ce7-8b2c-372a9f11f465'; //test
     //this.subscribeKey = 'sub-c-43a0587a-01b6-11ea-bbfb-3ebaf4b32844'; //test
     
-    //this.publishKey = 'pub-c-cad65686-bd3c-4dc7-8789-3948635af779';//offical
-    //this.subscribeKey = 'sub-c-2fdccaf0-0704-11ea-a6bf-b207d7d0b791';//offical
+    this.publishKey = 'pub-c-cad65686-bd3c-4dc7-8789-3948635af779';//offical
+    this.subscribeKey = 'sub-c-2fdccaf0-0704-11ea-a6bf-b207d7d0b791';//offical
     
-    this.publishKey='pub-c-4a2cb5f4-15b4-41c8-8c0b-886a26e9a177';
-    this.subscribeKey='sub-c-e4e73fd2-023d-11ea-831a-52dd774e953e';
+    //this.publishKey='pub-c-4a2cb5f4-15b4-41c8-8c0b-886a26e9a177';
+    //this.subscribeKey='sub-c-e4e73fd2-023d-11ea-831a-52dd774e953e';
     
     this.subscriptions = localStorage["pn-subscriptions"]||[];
 
