@@ -1,13 +1,8 @@
 $(document).ready(function () {
+
   function PubNub() {
-    //this.publishKey = 'pub-c-ab4c8626-b3db-4ce7-8b2c-372a9f11f465'; //test
-    //this.subscribeKey = 'sub-c-43a0587a-01b6-11ea-bbfb-3ebaf4b32844'; //test
-    
     this.publishKey = 'pub-c-cad65686-bd3c-4dc7-8789-3948635af779';//offical
     this.subscribeKey = 'sub-c-2fdccaf0-0704-11ea-a6bf-b207d7d0b791';//offical
-    
-    //this.publishKey='pub-c-4a2cb5f4-15b4-41c8-8c0b-886a26e9a177';
-    //this.subscribeKey='sub-c-e4e73fd2-023d-11ea-831a-52dd774e953e';
     
     this.subscriptions = localStorage["pn-subscriptions"]||[];
 
@@ -22,7 +17,8 @@ $(document).ready(function () {
     this.connection = PUBNUB.init({
       publish_key: this.publishKey,
       subscribe_key: this.subscribeKey,
-      uuid: this.username
+      uuid: this.username,
+      ssl: true
     });
   };
 
@@ -70,7 +66,10 @@ $(document).ready(function () {
       chatButton = $("#startChatButton"),
       setPassword = $("#setPassword"),
       homePage = $("#homePage"),
+      chatLIST = $("#ChatList"),
       newChatButton = $("#newChatButton"),
+      newChat = $("#newChat"),
+      RoomName = $("#RoomName"),
       chatListEl = $("#chatList"),
       sendMessageButton = $("#sendMessageButton"),
       backButton = $("#backButton"),
@@ -98,7 +97,7 @@ $(document).ready(function () {
 
   // Request permission for desktop notifications.
   Notification.requestPermission().then(function(result) {
-  console.log(result);
+  
   });
   function askNotificationPermission() {
   // function to actually ask the permissions
@@ -186,6 +185,11 @@ $(document).ready(function () {
       if(localStorage.username===usernameInput.val() && localStorage.password===passwordInput.val()){
           pubnub.connect(username);
           $.mobile.changePage(pages.chatList);
+           chatChannel = "Welcome";
+            pubnub.subscribe({
+              channel: "Welcome"
+            });
+         
       }
     });
   }
@@ -225,16 +229,55 @@ $(document).ready(function () {
       }
     });
     }
-  
+
     newChatButton.off('click');
     newChatButton.click(function (event) {
       if(chatRoomName.val() !== '') {
         chatChannel = chatRoomName.val();
-
         $.mobile.changePage(pages.chat);
       }
     });
   }
+
+  function ChatPageList(event,data){
+    chatLIST.empty();
+    for(var i = 0; i !=pubnub.subscriptions.length; i++) {
+      
+      var ChatName = pubnub.subscriptions[i],
+          ChatEl = $("<li><a href='#chatPage' data-channel-name='" + ChatName + "'>"
+            + ChatName
+            + "</a><a href='#delete' data-rel='dialog' data-channel-name='" + ChatName + "'></a></li>");
+    
+      chatLIST.append(ChatEl);
+      chatLIST.listview('refresh');
+      pubnub.subscribe({
+      channel:pubnub.subscriptions[i],
+      callback: function(message, env, channel){
+        var colon = message.text.indexOf(":");
+        var user = message.text.slice(0,colon);
+        var txt = message.text.slice(colon+1);
+     
+        const title = "New Message";
+        const options = {
+        body: channel+"\n"+user+" said "+txt,
+        icon: 'favicon.png'
+      };
+        var blocked = [];
+        if (window.Notification && Notification.permission === "granted") {
+          new Notification(title,options);
+        }
+      }
+    });
+    };
+    newChat.off('click');
+    newChat.click(function (event) {
+      if(RoomName.val() !== '') {
+        chatChannel = RoomName.val();
+        $.mobile.changePage(pages.chat);
+      }
+    });
+  }
+
 
   //////
   // Delete Chat View
@@ -266,7 +309,7 @@ $(document).ready(function () {
     if (data.options && data.options.link) {
       chatChannel = data.options.link.attr('data-channel-name');
     }
-
+    
     users = [];
     messageList.empty();
     userList.empty();
@@ -275,15 +318,13 @@ $(document).ready(function () {
        channel: chatChannel
     
     });
-
+    
     pubnub.subscribe({
       channel: chatChannel,
       message: self.handleMessage,
         
-      presence   : function( message, env, channel ) {
-        
+      presence: function( message, env, channel ) {
         if (message.action == "join"&&isBlurred === false) {
-          
           users.push(message.uuid);
           userList.append("<li data-username='"+message.uuid + "'>" + message.uuid+"</li>");
         } else {
@@ -296,10 +337,8 @@ $(document).ready(function () {
         userList.listview('refresh');
         
       }
-      
     });
-    
-    // Handle chat history
+  
     pubnub.history({
       channel: chatChannel,
       limit: 100
@@ -360,12 +399,21 @@ $(document).ready(function () {
     });
     };
 
+function send(mess){
+  pubnub.publish({
+    channel: chatChannel,
+      message: {
+          username: time,
+          text: username+": "+mess
+        }
+  });
+}
   // This handles appending new messages to our chat list.
   ChatView.prototype.handleMessage = function (message, animate) {
     if (animate !== false){ animate = true;}
 
-    var messageEl = $("<li class='message'>"+ "<span class='username'>"
-      +message.username+ "</span>"
+    var messageEl = $("<li class='message' style='word-wrap: break-word;'>"+ "<span class='username'>"
+      +message.username+" "+ "</span>"
       +message.text
       
       +"</li>");
@@ -373,16 +421,12 @@ $(document).ready(function () {
     messageList.listview('refresh');
     
     // Scroll to bottom of page
-    // if (animate === true) {
-    //   $("html, body").animate({ scrollTop: $(document).height() - $(window).height() }, 'slow');
-    // }
+    if (animate === true) {
+      $("html, body").animate({ scrollTop: $(document).height() - $(window).height() }, 'fast');
+    }
    
     if (isBlurred) {
       // Flash title if blurred
-      clearInterval(timerId);
-      timerId = setInterval(function () {
-        document.title = document.title == chatChannel ? "New Message" : chatChannel;
-      }, 2000);
          
       // Notification handling
       colon = message.text.indexOf(":");
@@ -409,11 +453,13 @@ $(document).ready(function () {
   // page the user is navigating to.
   $(document).bind("pagechange", function (event, data) {
     if (data.toPage[0] == pages.chatList[0]) {
-      currentView = new ChatListView(event, data);
+     currentView=new ChatListView(event, data);
+      $.mobile.changePage(pages.chat);
     } else if (data.toPage[0] == pages.delete[0]) {
       currentView = new DeleteChatView(event, data);
     } else if (data.toPage[0] == pages.chat[0]) {
       currentView = new ChatView(event, data);
+      new ChatPageList(event,data);
     }
   });
 });
