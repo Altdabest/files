@@ -460,6 +460,7 @@ function send(mess){
     } else if (data.toPage[0] == pages.chat[0]) {
       currentView = new ChatView(event, data);
       new ChatPageList(event,data);
+      new ChatListView(event, data);
     }
   });
 });
