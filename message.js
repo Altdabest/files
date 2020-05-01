@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
   function PubNub() {
+    
     this.publishKey = 'pub-c-cad65686-bd3c-4dc7-8789-3948635af779';//offical
     this.subscribeKey = 'sub-c-2fdccaf0-0704-11ea-a6bf-b207d7d0b791';//offical
     
@@ -184,12 +185,8 @@ $(document).ready(function () {
       }
       if(localStorage.username===usernameInput.val() && localStorage.password===passwordInput.val()){
           pubnub.connect(username);
-          $.mobile.changePage(pages.chatList);
-           chatChannel = "Welcome";
-            pubnub.subscribe({
-              channel: "Welcome"
-            });
-         
+          $.mobile.changePage(pages.chat);
+          chatChannel = " ";
       }
     });
   }
@@ -199,17 +196,7 @@ $(document).ready(function () {
   ///////
   
   function ChatListView(event, data) {
-    chatListEl.empty();
     for(var i = 0; i !=pubnub.subscriptions.length; i++) {
-      
-      var chatName = pubnub.subscriptions[i],
-          chatEl = $("<li><a href='#chatPage' data-channel-name='" + chatName + "'>"
-            + chatName
-            + "</a><a href='#delete' data-rel='dialog' data-channel-name='" + chatName + "'></a></li>");
-    
-      chatListEl.append(chatEl);
-      chatListEl.listview('refresh');
-      
       pubnub.subscribe({
       channel:pubnub.subscriptions[i],
       callback: function(message, env, channel){
@@ -229,14 +216,6 @@ $(document).ready(function () {
       }
     });
     }
-
-    newChatButton.off('click');
-    newChatButton.click(function (event) {
-      if(chatRoomName.val() !== '') {
-        chatChannel = chatRoomName.val();
-        $.mobile.changePage(pages.chat);
-      }
-    });
   }
 
   function ChatPageList(event,data){
@@ -250,29 +229,13 @@ $(document).ready(function () {
     
       chatLIST.append(ChatEl);
       chatLIST.listview('refresh');
-      pubnub.subscribe({
-      channel:pubnub.subscriptions[i],
-      callback: function(message, env, channel){
-        var colon = message.text.indexOf(":");
-        var user = message.text.slice(0,colon);
-        var txt = message.text.slice(colon+1);
-     
-        const title = "New Message";
-        const options = {
-        body: channel+"\n"+user+" said "+txt,
-        icon: 'favicon.png'
-      };
-        var blocked = [];
-        if (window.Notification && Notification.permission === "granted") {
-          new Notification(title,options);
-        }
-      }
-    });
     };
+    
     newChat.off('click');
     newChat.click(function (event) {
       if(RoomName.val() !== '') {
         chatChannel = RoomName.val();
+
         $.mobile.changePage(pages.chat);
       }
     });
@@ -453,14 +416,13 @@ function send(mess){
   // page the user is navigating to.
   $(document).bind("pagechange", function (event, data) {
     if (data.toPage[0] == pages.chatList[0]) {
-     currentView=new ChatListView(event, data);
+      currentView = new ChatListView(event, data);
       $.mobile.changePage(pages.chat);
     } else if (data.toPage[0] == pages.delete[0]) {
       currentView = new DeleteChatView(event, data);
     } else if (data.toPage[0] == pages.chat[0]) {
       currentView = new ChatView(event, data);
       new ChatPageList(event,data);
-      new ChatListView(event, data);
     }
   });
 });
